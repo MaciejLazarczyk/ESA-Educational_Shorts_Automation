@@ -1,0 +1,73 @@
+# =====================================================
+# KONFIGURACJA YouTube Video Generator v4 - POPRAWIONA
+# =====================================================
+
+[API_KEYS]
+# All scripts now read NAGA_API_KEY from environment variable (set it before running)
+api_key_source = "env:NAGA_API_KEY"
+max_retries_per_request = 10
+
+[API_MODELS]
+model_text = "llama-3.3-70b-instruct:free"
+model_tts = "gpt-4o-mini-tts:free"
+model_scenario = "llama-3.3-70b-instruct:free"
+model_image = "flux-1-schnell:free"
+voice = "alloy"
+base_url = "https://api.naga.ac/v1"
+
+[FOLDERS]
+output_folder = "ReadyContent/shorts"
+temp_folder = "shorts_temp"
+input_folder = "ReadyContent/readyArticles"
+
+[FILENAMES]
+filename_audio = "{article}_{index:03d}_audio.mp3"
+filename_image = "{article}_{index:03d}_image.png"
+filename_image_text = "{article}_{index:03d}_image.png"
+filename_video = "{article}_{index:03d}_video.mp4"
+filename_final = "{article}_final.mp4"
+
+[PIPELINE]
+step_generate_scenario = true
+step_generate_tts = true
+step_generate_images = true
+step_add_text_overlay = true
+step_create_videos = false
+step_concatenate = false
+
+[PROMPTS]
+prompt_scenario = "You are an expert in creating scripts for YouTube Shorts science videos. Based on the article below, create a script for a short, engaging video. REQUIREMENTS: - Provide only the text to be read (a pure monologue, no metadata) - Capture the viewer curiosity within the first 3 seconds (strong hook) - Language: English - Format: Each sentence on a new line. The text will be read by TTS, so each line must clearly make sense as spoken English. Only concrete information, one focused topic, no digressions, if specialistic term is introduced, it must be explained. - Include an intriguing question at the end and invite the viewer to share their opinion in the comments. - Maintain tension until the last moment: hint at something big at the start, reveal less important info first, and keep the key fact for the end. - Length: 100 words ARTICLE: {article_content} SCRIPT (text only, no explanations):"
+prompt_image = "You are an expert in creating prompts for generating images for YouTube Shorts science videos. Based on the sentence and the context of the article, create a prompt for a dynamic, visually engaging image. REQUIREMENTS: - Dynamic and visually stimulating - High quality and professional - Illustrates the content of the sentence - Matches the style of popular science YouTube Shorts - Futuristic, surprising, emotionally captivating, but not graphic or disturbing - No visual dissonance with the sentence content - Colors: Vibrant - No text, no NSFW elements ARTICLE CONTEXT: {context} CURRENT SENTENCE (#{sentence_index}): \"{sentence}\" IMAGE GENERATION PROMPT (text only, no explanation):"
+
+[TEXT_SPLITTING]
+sentence_split_method = "both"
+
+[VIDEO_SETTINGS]
+video_width = 1080
+video_height = 1920
+video_fps = 5
+video_bitrate = "5000k"
+video_codec = "libx264"
+video_preset = "medium"
+video_pix_fmt = "yuv420p"
+video_zoom_enabled = false
+video_zoom_speed = 0.0001
+video_zoom_max = 1.2
+
+[TEXT_OVERLAY]
+text_enabled = true
+text_font_size = 80
+text_font_name = "C:\\Windows\\Fonts\\roboto-bold.ttf"
+text_font_bold = true
+text_font_italic = false
+text_color = "(255, 255, 255)"
+text_position = "bottom"
+text_background_type = "glassmorphism"
+text_background_color = "(0, 0, 0)"
+text_background_alpha = 140
+text_background_blur = 15
+text_background_padding = 15
+text_background_corner_radius = 20
+
+[AUDIO]
+audio_default_duration = 5.0
